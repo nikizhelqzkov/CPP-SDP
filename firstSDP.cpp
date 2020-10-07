@@ -1,8 +1,7 @@
 #include <iostream>
 
 int test(int t)
-{
-    
+{    
     return t>=5 ? 30 : 25;
 }
 
