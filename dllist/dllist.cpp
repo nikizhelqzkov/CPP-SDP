@@ -61,6 +61,7 @@ void DLList<T>::clear()
     {
         save = cur;
         cur = cur->next;
+        std::cout << " deleted : ";
         delete save;
     }
     last = nullptr;
@@ -97,5 +98,53 @@ std::ostream &operator<<(std::ostream &out, const DLList<T> &list)
     }
     return out;
 }
+template <class T>
+DLList<T> &DLList<T>::pushInFront(const T &data)
+{
+    if (first != nullptr && last != nullptr)
+    {
+        first = new DLList<T>::box{data, first, nullptr};
+        if (first->next != nullptr)
+        {
+            first->next->prev = first;
+        }
+    }
+    else
+    {
+        first = last = new DLList<T>::box{data, nullptr, nullptr};
+    }
+    return *this;
+}
+template <class T>
+int DLList<T>::count(int x)
+{
+    if (first == nullptr)
+    {
+        return 0;
+    }
 
+    DLList<T>::box *current = first;
+    int counter = 0;
+    //this += pushInfirst(current->data);
+    while (current != nullptr)
+    {
+        if (current->data == x)
+        {
+            counter++;
+        }
+        current = current->next;
+    }
+    return counter;
+}
+
+template <class T>
+T DLList<T>::getData() const
+{
+    return first->data;
+}
+template <class T>
+typename DLList<T>::box *DLList<T>::getBox() const
+{
+    return first;
+}
 #endif

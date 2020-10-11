@@ -12,6 +12,7 @@ public:
     ~DLList();
     DLList<T> &operator=(const DLList<T> &);
     DLList<T> &operator+=(const T &);
+    DLList<T> &pushInFront(const T &);
     DLList<T> operator+(const T &) const;
 
 private:
@@ -26,6 +27,12 @@ private:
 
     void copy(const DLList<T> &);
     void clear();
+
+public:
+    box *range(int, int);
+    int count(int);
+    T getData()const;
+    box* getBox()const;
 };
 
 #include "dllist.cpp"
