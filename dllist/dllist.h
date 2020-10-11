@@ -6,15 +6,13 @@
 template <class T>
 class DLList
 {
-
 public:
     DLList();
     DLList(const DLList<T> &);
     ~DLList();
     DLList<T> &operator=(const DLList<T> &);
-
-    DLList<T> operator+(const T &) const;
     DLList<T> &operator+=(const T &);
+    DLList<T> operator+(const T &) const;
 
 private:
     struct box
@@ -22,18 +20,13 @@ private:
         T data;
         box *next, *prev;
     };
-
-    box *first;
-
+    box *first, *last;
     template <class E>
     friend std::ostream &operator<<(std::ostream &, const DLList<E> &);
 
     void copy(const DLList<T> &);
     void clear();
 };
-
-template <class T>
-std::ostream &operator<<(std::ostream &, const DLList<T> &);
 
 #include "dllist.cpp"
 

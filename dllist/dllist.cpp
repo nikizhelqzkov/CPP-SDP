@@ -2,10 +2,9 @@
 #define __DLLIST_CPP
 
 #include "dllist.h"
-#include <iostream>
 
 template <class T>
-DLList<T>::DLList() : first(nullptr)
+DLList<T>::DLList() : first(nullptr), last(nullptr)
 {
 }
 template <class T>
@@ -18,19 +17,6 @@ DLList<T>::~DLList()
 {
     clear();
 }
-
-template <class T>
-void DLList<T>::clear()
-{
-    DLList<T>::box *crr = first, *save;
-    while (crr != nullptr)
-    {
-        save = crr;
-        crr = crr->next;
-        delete save;
-    }
-}
-
 template <class T>
 DLList<T> &DLList<T>::operator=(const DLList<T> &other)
 {
@@ -43,64 +29,73 @@ DLList<T> &DLList<T>::operator=(const DLList<T> &other)
 }
 
 template <class T>
-DLList<T> DLList<T>::operator+(const T &x) const
+DLList<T> &DLList<T>::operator+=(const T &data)
+{
+    if (first != nullptr && last != nullptr)
+    {
+        last = new DLList<T>::box{data, nullptr, last};
+        if (last->prev != nullptr)
+        {
+            last->prev->next = last;
+        }
+    }
+    else
+    {
+        first = last = new DLList<T>::box{data, nullptr, nullptr};
+    }
+    return *this;
+}
+template <class T>
+
+DLList<T> DLList<T>::operator+(const T &data) const
 {
     DLList<T> result(*this);
-    result += x;
+    result += data;
     return result;
 }
 template <class T>
-DLList<T> &DLList<T>::operator+=(const T &x)
+void DLList<T>::clear()
 {
-    first = new DLList<T>::box{x, first, nullptr};
-
-    if (first->next != nullptr)
+    DLList<T>::box *cur = first, *save;
+    while (cur != nullptr)
     {
-        first->next->prev = first;
+        save = cur;
+        cur = cur->next;
+        delete save;
     }
-
-    return *this;
-}
-
-template <class T>
-std::ostream &operator<<(std::ostream &out, const DLList<T> &list)
-{
-    typename DLList<T>::box *crr = list.first;
-
-    while (crr != nullptr)
-    {
-        out << crr->data << " ";
-        crr = crr->next;
-    }
-
-    return out;
+    last = nullptr;
 }
 template <class T>
 void DLList<T>::copy(const DLList<T> &other)
 {
-    typename DLList<T>::box *newBox = new DLList<T>::box,
-                            *current,
-                            *lastCreated;
-
+    typename DLList<T>::box *newBox, *current;
+    clear();
     if (other.first == nullptr)
     {
-        first = nullptr;
+        return;
     }
-    else
+    current = other.first;
+    first = new DLList<T>::box{current->data, nullptr, nullptr};
+    last = first;
+    current = current->next;
+    while (current != nullptr)
     {
-        current = other.first;
-        first = new DLList<T>::box{current->data, nullptr, nullptr};
-        lastCreated = first;
+        newBox = new DLList<T>::box{current->data, nullptr, last};
+        last->next = newBox;
         current = current->next;
-
-        while (current != nullptr)
-        {
-            newBox = new DLList<T>::box{current->data, nullptr, lastCreated};
-            lastCreated->next = newBox;
-
-            current = current->next;
-            lastCreated = newBox;
-        }
+        last = newBox;
     }
 }
+template <class T>
+std::ostream &operator<<(std::ostream &out, const DLList<T> &list)
+{
+    typename DLList<T>::box *current = list.first;
+    while (current != nullptr)
+    {
+        out << current->data << " ";
+        current = current->next;
+    }
+    return out;
+}
+
 #endif
