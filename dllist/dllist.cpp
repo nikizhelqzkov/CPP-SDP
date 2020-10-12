@@ -136,7 +136,36 @@ int DLList<T>::count(int x)
     }
     return counter;
 }
-
+template <class T>
+typename DLList<T>::box *DLList<T>::range(int x, int y)
+{
+    typename DLList<T>::box *current = first;
+    if ((x > y) || count(x) == 0 || count(y) == 0)
+    {
+        std::cout << "Something is wrong!!!\n";
+        return first;
+    }
+    while (current != nullptr)
+    {
+        if (current->data == x)
+        {
+            first = current;
+            while (current->data != y)
+            {
+                if (current->data == y)
+                {
+                    last = current;
+                    return first;
+                }
+                current = current->next;
+            }
+        }
+        else
+        {
+            current = current->next;
+        }
+    }
+}
 template <class T>
 T DLList<T>::getData() const
 {
