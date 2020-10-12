@@ -61,7 +61,6 @@ void DLList<T>::clear()
     {
         save = cur;
         cur = cur->next;
-        std::cout << " deleted : ";
         delete save;
     }
     last = nullptr;
@@ -150,10 +149,12 @@ typename DLList<T>::box *DLList<T>::range(int x, int y)
         if (current->data == x)
         {
             first = current;
-            while (current->data != y)
+            bool is = false;
+            while (!is)
             {
                 if (current->data == y)
                 {
+                    is = true;
                     last = current;
                     return first;
                 }
@@ -175,5 +176,31 @@ template <class T>
 typename DLList<T>::box *DLList<T>::getBox() const
 {
     return first;
+}
+template <class T>
+typename DLList<T>::box *DLList<T>::getFirst() const
+{
+    return first;
+}
+template <class T>
+void DLList<T>::append(const DLList<T> &other)
+{
+
+    // DLList<T> result = (*this);
+    if (other.first == nullptr)
+    {
+        return;
+    }
+    typename DLList<T>::box *current = last;
+    other.first->prev = current;
+    last = other.last;
+
+    // current->
+    // last = new DLList<T>::box{other->data, other->next, last};
+    // while (current != nullptr)
+    // {
+    //     result += current;
+    //     current = current->next;
+    // }
 }
 #endif

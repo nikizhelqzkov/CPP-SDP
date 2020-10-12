@@ -11,10 +11,12 @@ int main()
     list.pushInFront(2);
     DLList<int> list2;
     list2 = list;
-    std::cout << list2 << std::endl;
-    std::cout<<list.count(3)<<std::endl;
+    // std::cout << list2 << std::endl;
+    // std::cout<<list.count(3)<<std::endl;
  
-    std::cout<<list.range(1,2)->data;
+    //std::cout<<list.range(2,3)->data<<std::endl;
+     list.append(list2);
+     std::cout<<list<<std::endl;
     return 0;
     //std::cout << l << std::endl;
 }

@@ -31,8 +31,10 @@ private:
 public:
     box *range(int, int);
     int count(int);
-    T getData()const;
-    box* getBox()const;
+    T getData() const;
+    box* getFirst()const;
+    box *getBox() const;
+    void append(const DLList<T>&);
 };
 
 #include "dllist.cpp"
