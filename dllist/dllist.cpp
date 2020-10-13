@@ -135,6 +135,22 @@ int DLList<T>::count(int x)
     }
     return counter;
 }
+
+template <class T>
+void DLList<T>::setData(const T &data)
+{
+    DLList<T>::box *crr = new DLList<T>::box{data, nullptr, last};
+    if (last == nullptr || first == nullptr)
+    {
+        first = last = crr;
+        std::cout << last->data;
+    }
+    else
+    {
+        last->next = crr;
+        last = crr;
+    }
+}
 template <class T>
 typename DLList<T>::box *DLList<T>::range(int x, int y)
 {
@@ -183,22 +199,22 @@ typename DLList<T>::box *DLList<T>::getFirst() const
     return first;
 }
 template <class T>
-void DLList<T>::append(const DLList<T> &other)
+void append(DLList<T> &l1, const DLList<T> &l2)
 {
-    //ako podavam bez & togava iztriva i ne dostiga informaciq ot other
-    if (other.first == nullptr)
+    if (l2.first == nullptr)
     {
         return;
     }
-    typename DLList<T>::box *current = other.first;
-    last->next = current;
-    current->prev = last;
-    last = other.last;
+    typename DLList<T>::box *current = l2.first;
+    l1.last->next = current;
+    current->prev = l1.last;
+    l1.last = l2.last;
 }
 template <class T>
-DLList<T> &DLList<T>::operator+=(const DLList<T> &other)
+DLList<T>& operator+=(DLList<T> &l1, const DLList<T> &l2)
 {
-    this->append(other);
-    return *this;
+    append(l1,l2);
+    return l1;
 }
+
 #endif

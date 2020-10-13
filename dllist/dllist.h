@@ -32,10 +32,16 @@ public:
     box *range(int, int);
     int count(int);
     T getData() const;
-    box* getFirst()const;
+    box *getFirst() const;
     box *getBox() const;
-    void append(const DLList<T>&);
-    DLList<T> &operator+=(const DLList<T>&);
+    void setData(const T &);
+    
+    //DLList<T> &operator+=(const DLList<T> &);
+    template <class E>
+    friend void append(DLList<E> &, const DLList<E> &);
+    template <class F>
+    friend DLList<F>& operator+=(DLList<F> &, const DLList<F> &);
+    
 };
 
 #include "dllist.cpp"
