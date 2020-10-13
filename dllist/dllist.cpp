@@ -62,6 +62,7 @@ void DLList<T>::clear()
         save = crr;
         crr = crr->next;
         delete save;
+        //save = nullptr; //save = nullptr;//taka raboti kato go pisha vmesto delete no ne mislq che trie taka naistina
     }
     last = nullptr;
 }
