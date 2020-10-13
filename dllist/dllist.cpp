@@ -199,22 +199,41 @@ typename DLList<T>::box *DLList<T>::getFirst() const
     return first;
 }
 template <class T>
-void append(DLList<T> &l1, const DLList<T> &l2)
+int DLList<T>::size() const
 {
-    if (l2.first == nullptr)
+    int c = 0;
+    DLList::box *current = first;
+    while (current != nullptr)
+    {
+        c++;
+        current = current->next;
+    }
+    return c;
+}
+
+template <class T>
+void DLList<T>::append(const DLList<T> &other)
+{
+    if (other.first == nullptr)
     {
         return;
     }
-    typename DLList<T>::box *current = l2.first;
-    l1.last->next = current;
-    current->prev = l1.last;
-    l1.last = l2.last;
+    else if (first == nullptr)
+    {
+        first = other.first;
+    }
+    typename DLList<T>::box *current = other.first;
+    for (size_t i = 0; i < other.size(); ++i)
+    {
+        operator+=(current->data);
+        current = current->next;
+    }
 }
 template <class T>
-DLList<T>& operator+=(DLList<T> &l1, const DLList<T> &l2)
+DLList<T> &DLList<T>::operator+=(const DLList<T> &other)
 {
-    append(l1,l2);
-    return l1;
+    append(other);
+    return *this;
 }
 
 #endif

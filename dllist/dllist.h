@@ -12,8 +12,15 @@ public:
     ~DLList();
     DLList<T> &operator=(const DLList<T> &);
     DLList<T> &operator+=(const T &);
+    DLList<T> &operator+=(const DLList<T> &);
     DLList<T> &pushInFront(const T &);
     DLList<T> operator+(const T &);
+
+    int count(int);
+    T getData() const;
+
+    void setData(const T &);
+    void append(const DLList<T> &);
 
 private:
     struct box
@@ -27,21 +34,12 @@ private:
 
     void copy(const DLList<T> &);
     void clear();
+    int size() const;
 
 public:
-    box *range(int, int);
-    int count(int);
-    T getData() const;
     box *getFirst() const;
     box *getBox() const;
-    void setData(const T &);
-    
-    //DLList<T> &operator+=(const DLList<T> &);
-    template <class E>
-    friend void append(DLList<E> &, const DLList<E> &);
-    template <class F>
-    friend DLList<F>& operator+=(DLList<F> &, const DLList<F> &);
-    
+    box *range(int, int);
 };
 
 #include "dllist.cpp"
