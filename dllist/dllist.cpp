@@ -70,7 +70,6 @@ template <class T>
 void DLList<T>::copy(const DLList<T> &other)
 {
     typename DLList<T>::box *newBox, *current;
-    clear();
     if (other.first == nullptr)
     {
         return;
@@ -236,4 +235,18 @@ DLList<T> &DLList<T>::operator+=(const DLList<T> &other)
     return *this;
 }
 
+template <class T>
+DLList<T> &DLList<T>::reverse()
+{
+    DLList<T> res;
+    DLList<T>::box *current = last;
+    for (size_t i = 0; i < size(); ++i)
+    {
+        res+=current->data;
+        current = current->prev;
+    }
+    current = nullptr;
+    this->operator=(res);
+    return *this;
+}
 #endif

@@ -15,6 +15,7 @@ public:
     DLList<T> &operator+=(const DLList<T> &);
     DLList<T> &pushInFront(const T &);
     DLList<T> operator+(const T &);
+    DLList<T>& reverse();
 
     int count(int);
     T getData() const;

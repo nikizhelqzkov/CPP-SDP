@@ -45,6 +45,9 @@ int main()
     // std::cout << list << std::endl;
     //list+=list2;
     std::cout << list << std::endl;
+    list.reverse();
+    
+    std::cout << list << std::endl;
 
     //std::cout << res << std::endl;
     return 0;
