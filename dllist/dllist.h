@@ -13,7 +13,7 @@ public:
     DLList<T> &operator=(const DLList<T> &);
     DLList<T> &operator+=(const T &);
     DLList<T> &pushInFront(const T &);
-    DLList<T> operator+(const T &) const;
+    DLList<T> operator+(const T &);
 
 private:
     struct box
@@ -35,6 +35,7 @@ public:
     box* getFirst()const;
     box *getBox() const;
     void append(const DLList<T>&);
+    DLList<T> &operator+=(const DLList<T>&);
 };
 
 #include "dllist.cpp"

@@ -47,7 +47,7 @@ DLList<T> &DLList<T>::operator+=(const T &data)
 }
 template <class T>
 
-DLList<T> DLList<T>::operator+(const T &data) const
+DLList<T> DLList<T>::operator+(const T &data)
 {
     DLList<T> result(*this);
     result += data;
@@ -61,9 +61,10 @@ void DLList<T>::clear()
     {
         save = cur;
         cur = cur->next;
+        //save = nullptr;//taka raboti kato go pisha vmesto delete no ne mislq che trie taka naistina
         delete save;
     }
-    last = nullptr;
+
 }
 template <class T>
 void DLList<T>::copy(const DLList<T> &other)
@@ -124,7 +125,6 @@ int DLList<T>::count(int x)
 
     DLList<T>::box *current = first;
     int counter = 0;
-    //this += pushInfirst(current->data);
     while (current != nullptr)
     {
         if (current->data == x)
@@ -175,7 +175,7 @@ T DLList<T>::getData() const
 template <class T>
 typename DLList<T>::box *DLList<T>::getBox() const
 {
-    return first;
+    return last;
 }
 template <class T>
 typename DLList<T>::box *DLList<T>::getFirst() const
@@ -183,10 +183,9 @@ typename DLList<T>::box *DLList<T>::getFirst() const
     return first;
 }
 template <class T>
-void DLList<T>::append(const DLList<T> &other)
+void DLList<T>::append(const DLList<T>& other)
 {
-
-    // DLList<T> result = (*this);
+    //ako podavam bez & togava iztriva i ne dostiga informaciq ot other
     if (other.first == nullptr)
     {
         return;
@@ -195,7 +194,11 @@ void DLList<T>::append(const DLList<T> &other)
     last->next = current;
     current->prev = last;
     last = other.last;
-
 }
-
+template <class T>
+DLList<T> &DLList<T>::operator+=(const DLList<T> &other)
+{
+    this->append(other);
+    return *this;
+}
 #endif
