@@ -191,16 +191,11 @@ void DLList<T>::append(const DLList<T> &other)
     {
         return;
     }
-    typename DLList<T>::box *current = last;
-    other.first->prev = current;
+    typename DLList<T>::box *current = other.first;
+    last->next = current;
+    current->prev = last;
     last = other.last;
 
-    // current->
-    // last = new DLList<T>::box{other->data, other->next, last};
-    // while (current != nullptr)
-    // {
-    //     result += current;
-    //     current = current->next;
-    // }
 }
+
 #endif
