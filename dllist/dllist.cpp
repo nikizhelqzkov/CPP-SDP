@@ -56,15 +56,14 @@ DLList<T> DLList<T>::operator+(const T &data)
 template <class T>
 void DLList<T>::clear()
 {
-    DLList<T>::box *cur = first, *save;
-    while (cur != nullptr)
+    DLList<T>::box *crr = first, *save;
+    while (crr != nullptr)
     {
-        save = cur;
-        cur = cur->next;
-        //save = nullptr;//taka raboti kato go pisha vmesto delete no ne mislq che trie taka naistina
+        save = crr;
+        crr = crr->next;
         delete save;
     }
-
+    last = nullptr;
 }
 template <class T>
 void DLList<T>::copy(const DLList<T> &other)
@@ -183,7 +182,7 @@ typename DLList<T>::box *DLList<T>::getFirst() const
     return first;
 }
 template <class T>
-void DLList<T>::append(const DLList<T>& other)
+void DLList<T>::append(const DLList<T> &other)
 {
     //ako podavam bez & togava iztriva i ne dostiga informaciq ot other
     if (other.first == nullptr)
