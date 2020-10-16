@@ -15,13 +15,16 @@ public:
     DLList<T> &operator+=(const DLList<T> &);
     DLList<T> &pushInFront(const T &);
     DLList<T> operator+(const T &);
-    DLList<T>& reverse();
+    DLList<T> &reverse();
 
     int count(int);
     T getData() const;
 
     void setData(const T &);
     void append(const DLList<T> &);
+    box *getFirst() const;
+    box *getBox() const;
+    box *range(int, int);
 
 private:
     struct box
@@ -37,10 +40,6 @@ private:
     void clear();
     int size() const;
 
-public:
-    box *getFirst() const;
-    box *getBox() const;
-    box *range(int, int);
 };
 
 #include "dllist.cpp"

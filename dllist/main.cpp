@@ -28,7 +28,6 @@ int main()
     list += list2;
     list.pushInFront(85);
 
-  
     //list.append(list2);
     //list2 = list;
     //operator+=(list, list2);
@@ -46,7 +45,7 @@ int main()
     //list+=list2;
     std::cout << list << std::endl;
     list.reverse();
-    
+
     std::cout << list << std::endl;
 
     //std::cout << res << std::endl;
