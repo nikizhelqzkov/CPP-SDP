@@ -116,7 +116,7 @@ void slist::skipping()
 }
 void slist::pushSorted(const int &data)
 {
-    skipping();
+
     count++;
 
     slist::skipBox *el = locate(data);
@@ -128,6 +128,7 @@ void slist::pushSorted(const int &data)
     }
 
     el->next = new slist::skipBox(data, el->next, nullptr);
+    skipping();
 }
 
 std::ostream &operator<<(std::ostream &out, const slist &list)

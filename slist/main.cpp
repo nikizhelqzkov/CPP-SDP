@@ -1,4 +1,4 @@
-#include "slist.h"
+#include "slist.cpp"
 
 #include "../specHelper.h"
 bool comp(const int &a, const int &b)
@@ -43,8 +43,8 @@ TEST_CASE("Member test")
         test.pushSorted(21 + count);
     }
 
-    test.skipping ();
-
+  //  test.skipping ();
+    bool t = test.member(61);
     CHECK(test.member(0));
     CHECK(test.member(10));
     CHECK(test.member(20));
