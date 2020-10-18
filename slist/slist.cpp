@@ -3,6 +3,34 @@
 slist::slist(comparator c) : first(nullptr), count(0), c(c)
 {
 }
+
+slist::slist(const slist &other)
+{
+    copy(other);
+}
+
+void slist::copy(const slist &other)
+{
+    slist::skipBox *crr = other.first, *last = nullptr;
+    first = nullptr;
+    count = 0;
+    if (crr == nullptr)
+    {
+        return;
+    }
+    first = new slist::skipBox(crr->data, nullptr, nullptr);
+    last = first;
+    crr = crr->next;
+    count = 1;
+
+    while (crr != nullptr)
+    {
+        last->next = new slist::skipBox(crr->data, nullptr, nullptr);
+        last = last->next;
+        crr = crr->next;
+        ++count;
+    }
+}
 slist::~slist()
 {
     clear();
@@ -16,6 +44,21 @@ void slist::clear()
         crr = crr->next;
         delete save;
     }
+}
+
+slist &slist::operator=(const slist &other)
+{
+    if (this != &other)
+    {
+        clear();
+        copy(other);
+    }
+    return *this;
+}
+slist &slist::operator+=(const int &data)
+{
+    pushSorted(data);
+    return *this;
 }
 slist::skipBox::skipBox(const int &data, skipBox *next, skipBox *skip) : data(data), next(next), skip(skip)
 {
@@ -73,19 +116,18 @@ void slist::skipping()
 }
 void slist::pushSorted(const int &data)
 {
-    
-  count++;
+    skipping();
+    count++;
 
-  slist::skipBox *el = locate(data);
+    slist::skipBox *el = locate(data);
 
-  if (el == nullptr)
-  {
-      first = new slist::skipBox (data, first, nullptr);
-      return;     
-  }
-  
-  el->next = new slist::skipBox (data, el->next,nullptr);
-  skipping();
+    if (el == nullptr)
+    {
+        first = new slist::skipBox(data, first, nullptr);
+        return;
+    }
+
+    el->next = new slist::skipBox(data, el->next, nullptr);
 }
 
 std::ostream &operator<<(std::ostream &out, const slist &list)
