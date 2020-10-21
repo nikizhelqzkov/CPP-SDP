@@ -150,53 +150,53 @@ void DLList<T>::setData(const T &data)
         last = crr;
     }
 }
-template <class T>
-typename DLList<T>::box *DLList<T>::range(int x, int y)
-{
-    typename DLList<T>::box *current = first;
-    if ((x > y) || count(x) == 0 || count(y) == 0)
-    {
-        std::cout << "Something is wrong!!!\n";
-        return first;
-    }
-    while (current != nullptr)
-    {
-        if (current->data == x)
-        {
-            first = current;
-            bool is = false;
-            while (!is)
-            {
-                if (current->data == y)
-                {
-                    is = true;
-                    last = current;
-                    return first;
-                }
-                current = current->next;
-            }
-        }
-        else
-        {
-            current = current->next;
-        }
-    }
-}
+// template <class T>
+//  typename DLList<T>::box *DLList<T>::range(int x, int y)
+// {
+//     typename DLList<T>::box *current = first;
+//     if ((x > y) || count(x) == 0 || count(y) == 0)
+//     {
+//         std::cout << "Something is wrong!!!\n";
+//         return first;
+//     }
+//     while (current != nullptr)
+//     {
+//         if (current->data == x)
+//         {
+//             first = current;
+//             bool is = false;
+//             while (!is)
+//             {
+//                 if (current->data == y)
+//                 {
+//                     is = true;
+//                     last = current;
+//                     return first;
+//                 }
+//                 current = current->next;
+//             }
+//         }
+//         else
+//         {
+//             current = current->next;
+//         }
+//     }
+// }
 template <class T>
 T DLList<T>::getData() const
 {
     return first->data;
 }
-template <class T>
-typename DLList<T>::box *DLList<T>::getBox() const
-{
-    return last;
-}
-template <class T>
-typename DLList<T>::box *DLList<T>::getFirst() const
-{
-    return first;
-}
+// template <class T>
+// typename DLList<T>::box *DLList<T>::getBox() const
+// {
+//     return last;
+// }
+// template <class T>
+// typename DLList<T>::box *DLList<T>::getFirst() const
+// {
+//     return first;
+// }
 template <class T>
 int DLList<T>::size() const
 {
@@ -242,11 +242,45 @@ DLList<T> &DLList<T>::reverse()
     DLList<T>::box *current = last;
     for (size_t i = 0; i < size(); ++i)
     {
-        res+=current->data;
+        res += current->data;
         current = current->prev;
     }
     current = nullptr;
     this->operator=(res);
     return *this;
+}
+
+template <class T>
+void DLList<T>::deleteAll(const T &data)
+{
+    if (first == nullptr)
+    {
+        return;
+    }
+    DLList::box *crr = first->next, *save;
+    if (first->data == data)
+    {
+        save = first;
+        first = first->next;
+        first->prev = nullptr;
+        delete save;
+    }
+
+    while (crr != nullptr)
+    {
+        if (crr->data == data)
+        {
+            save = crr;
+            crr = crr->next;
+            save->prev->next = crr;
+            crr->prev = save->prev;
+            delete save;
+        }
+        else
+        {
+            crr = crr->next;
+        }
+        
+    }
 }
 #endif

@@ -22,9 +22,10 @@ public:
 
     void setData(const T &);
     void append(const DLList<T> &);
-    box *getFirst() const;
-    box *getBox() const;
-    box *range(int, int);
+    // box *getFirst() const;
+    // box *getBox() const;
+   // DLList<T>::box range(int, int);
+    void deleteAll(const T& data);
 
 private:
     struct box

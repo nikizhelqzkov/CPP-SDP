@@ -22,7 +22,7 @@ int main()
     list2 += 8656;
     list += 95;
     //list2.setData(7);
-    std::cout << list2 << std::endl;
+    //std::cout << list2 << std::endl;
     list.append(list2);
     list.append(list2);
     list += list2;
@@ -44,8 +44,11 @@ int main()
     // std::cout << list << std::endl;
     //list+=list2;
     std::cout << list << std::endl;
-    list.reverse();
+  //  list.reverse();
 
+
+    list.deleteAll(2);
+    list.deleteAll(88);
     std::cout << list << std::endl;
 
     //std::cout << res << std::endl;
