@@ -2,10 +2,12 @@
 #include <stack>
 #include <string>
 #include <exception>
+#include "operations.h"
 bool isItNumber(char c)
 {
     return c >= '0' && c <= '9';
 }
+
 int fromCharToInt(char c)
 {
     if (!isItNumber(c))
@@ -14,16 +16,9 @@ int fromCharToInt(char c)
     }
     return (int)c - '0';
 }
-int cPlus(char c, int n, int prev)
-{
-    if (c != '+')
-    {
-        throw "error operator";
-    }
-    return prev + n;
-}
 int result(std::string symbols)
 {
+
     std::stack<int> results;
     int res = 0;
     int count = 0;
@@ -36,10 +31,9 @@ int result(std::string symbols)
         }
         else
         {
-            //metoda koito da znae kakva e operaciqta. raboti s plus
             while (!results.empty())
             {
-                res = cPlus(symbols[count], results.top(), res);
+                res = Operations::Operate(symbols[count], results.top(), res);
                 results.pop();
             }
             count++;
@@ -49,10 +43,7 @@ int result(std::string symbols)
 }
 int main()
 {
-    std::string symbols = {'3', '4','8', '+', '7', '+', '2', '+'};
+    std::string symbols = {'3', '4', '8', '+', '7', '+', '2', '*'};
 
-    //std::cout << fromCharToInt('3');
     std::cout << result(symbols);
 }
-
-//da suzdam funkciq ot po visok red koqto da vrushta funkciq koqto da smqta razlichnite operacii
