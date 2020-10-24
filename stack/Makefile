@@ -10,4 +10,4 @@ operations.o: operations.h operations.cpp
 build: main.o operations.o
 	g++ main.o operations.o -o main.exe
 	
-run: ./main.exe
+run: main.exe
