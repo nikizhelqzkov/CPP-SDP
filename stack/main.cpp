@@ -7,6 +7,19 @@ bool isItNumber(char c)
 {
     return c >= '0' && c <= '9';
 }
+int fromCharToInt(char c)
+{
+    if (!isItNumber(c))
+    {
+        throw "Not a number";
+    }
+    return (int)c - '0';
+}
+bool isOperator(char c)
+{
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
+}
+//funkciq s postavqne na skobi
 std::string normalToRevPolNot(const std::string &exp)
 {
     std::stack<char> s;
@@ -30,14 +43,62 @@ std::string normalToRevPolNot(const std::string &exp)
     }
     return newS;
 }
-int fromCharToInt(char c)
+//funkciq bez postavqne na skobi
+std::string transform(const std::string &str)
 {
-    if (!isItNumber(c))
+    std::stack<char> stack;
+    std::string newStr;
+    std::string result;
+
+    if (str[0] != '(' || str[str.size() - 1] != ')')
     {
-        throw "Not a number";
+        newStr.push_back('(');
+        for (char s : str)
+        {
+            newStr.push_back(s);
+        }
+        newStr.push_back(')');
     }
-    return (int)c - '0';
+    else
+    {
+        newStr = str;
+    }
+
+    for (size_t i = 0; i < newStr.size(); ++i)
+    {
+
+        if (isItNumber(newStr[i]))
+        {
+            result.push_back(newStr[i]);
+        }
+        else if (isOperator(newStr[i]) && isOperator(stack.top()))
+        {
+            i--;
+            result.push_back(stack.top());
+            stack.pop();
+        }
+        else if (isOperator(newStr[i]) || newStr[i] == '(')
+        {
+            stack.push(newStr[i]);
+        }
+        else if (newStr[i] == ')')
+        {
+            while (stack.top() != '(' && !stack.empty())
+            {
+                result.push_back(stack.top());
+                stack.pop();
+            }
+            stack.pop();
+        }
+        else
+        {
+            return "Error symbol";
+        }
+        
+    }
+    return result;
 }
+
 double result(std::string symbols)
 {
 
@@ -63,14 +124,17 @@ double result(std::string symbols)
     }
     return res;
 }
+
 int main()
 {
     // std::string symbols = {'3', '4', '8', '+', '7', '+', '2', '*'};
 
     //std::cout << result(symbols);
-    std::string r = "((((3+2)*3)-4)/2)";
-    std::cout << r<<std::endl;
-    r = normalToRevPolNot(r);
-    std::cout << r<<std::endl;
-    std::cout << result(r);
+    std::string r = "3+2*3-4/2";
+    r = transform(r);
+    std::cout << r << std::endl;
+    // r = normalToRevPolNot(r);
+    // std::cout << r << std::endl;
+     std::cout << result(r) << std::endl;
+    // std::cout << result("35+3-2*");
 }
