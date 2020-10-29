@@ -280,7 +280,40 @@ void DLList<T>::deleteAll(const T &data)
         {
             crr = crr->next;
         }
-        
     }
 }
+template <class T>
+DLList<T> DLList<T>::insertion(const DLList<T> &l1, const DLList<T> &l2)
+{
+    DLList<T> res;
+    DLList<T>::box *list1Head = l1.first;
+    DLList<T>::box *list2Head = l2.first;
+    while (list1Head && list2Head)
+    {
+        if (list1Head->data == list2Head->data)
+        {
+            res += list1Head->data;
+            DLList<T>::box *crr = list1Head;
+            while (crr->data == list1Head->data)
+            {
+                list1Head = list1Head->next;
+            }
+            while (crr->data == list1Head->data)
+            {
+                list2Head = list2Head->next;
+            }
+            continue;
+        }
+        if (list1Head->data < list2Head->data)
+        {
+            list1Head = list1Head->next;
+        }
+        else
+        {
+            list2Head = list2Head->next;
+        }
+    }
+    return res;
+}
+
 #endif

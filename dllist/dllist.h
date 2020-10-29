@@ -26,7 +26,7 @@ public:
     // box *getBox() const;
    // DLList<T>::box range(int, int);
     void deleteAll(const T& data);
-
+    static DLList<T> insertion(const DLList<T> &, const DLList<T> &);
 private:
     struct box
     {
