@@ -6,6 +6,10 @@ bool isValidExp(const std::string &exp)
 {
     std::queue<char> open;
     std::queue<char> close;
+    if (exp[0] == ')' || exp[exp.size() - 1] == '(')
+    {
+        return false;
+    }
     for (char el : exp)
     {
         if (el == '(')
@@ -31,6 +35,6 @@ bool isValidExp(const std::string &exp)
 
 int main()
 {
-    std::cout<<isValidExp("((5+(3-3)*9)-50)*20");
+    std::cout << isValidExp("(3*(5+(9*3+(*3(6+9))))+9*3)");
     return 0;
 }
