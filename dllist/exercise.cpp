@@ -3,6 +3,7 @@
 
 std::list<int> &rev(std::list<int> &list, int x, int y)
 {
+    int can = y-1;
     std::list<int>::iterator ptr;
     if (x <= 0)
     {
@@ -27,6 +28,9 @@ std::list<int> &rev(std::list<int> &list, int x, int y)
         {
             return list;
         }
+        if(can==0){
+            return list;
+        }
         int data = *it;
         std::list<int>::iterator other = it;
         other++;
@@ -34,6 +38,8 @@ std::list<int> &rev(std::list<int> &list, int x, int y)
         it = other;
         it++;
         list.insert(it, data);
+        can--;
+        
     }
     return list;
 }
