@@ -187,16 +187,16 @@ T DLList<T>::getData() const
 {
     return first->data;
 }
-// template <class T>
-// typename DLList<T>::box *DLList<T>::getBox() const
-// {
-//     return last;
-// }
-// template <class T>
-// typename DLList<T>::box *DLList<T>::getFirst() const
-// {
-//     return first;
-// }
+template <class T>
+typename DLList<T>::box *DLList<T>::getBox() const
+{
+    return last;
+}
+template <class T>
+typename DLList<T>::box *DLList<T>::getFirst() const
+{
+    return first;
+}
 template <class T>
 int DLList<T>::size() const
 {

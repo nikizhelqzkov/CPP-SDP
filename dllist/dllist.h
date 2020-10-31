@@ -22,11 +22,12 @@ public:
 
     void setData(const T &);
     void append(const DLList<T> &);
-    // box *getFirst() const;
-    // box *getBox() const;
-   // DLList<T>::box range(int, int);
-    void deleteAll(const T& data);
+    box *getFirst() const;
+    box *getBox() const;
+    // DLList<T>::box range(int, int);
+    void deleteAll(const T &data);
     static DLList<T> insertion(const DLList<T> &, const DLList<T> &);
+
 private:
     struct box
     {
@@ -40,7 +41,6 @@ private:
     void copy(const DLList<T> &);
     void clear();
     int size() const;
-
 };
 
 #include "dllist.cpp"
