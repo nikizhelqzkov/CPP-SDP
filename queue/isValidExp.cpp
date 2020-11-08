@@ -35,6 +35,6 @@ bool isValidExp(const std::string &exp)
 
 int main()
 {
-    std::cout << isValidExp("(3*(5+(9*3+(*3(6+9))))+9*3)");
+    std::cout << isValidExp("(3*(5+(9*3+(*3(6+9))))+9*3)1");
     return 0;
 }
