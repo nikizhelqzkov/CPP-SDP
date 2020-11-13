@@ -25,6 +25,7 @@ public:
     bool empty()const;
     QueueWithStack& operator=(const QueueWithStack&);
     friend std::ostream& operator<<(std::ostream&,QueueWithStack&);
+    
 };
 
 #endif

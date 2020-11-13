@@ -94,6 +94,7 @@ QueueWithStack &QueueWithStack::operator=(const QueueWithStack &other)
     }
     return *this;
 }
+
 std::ostream &operator<<(std::ostream &out, QueueWithStack &q)
 {
     while (!q.empty())

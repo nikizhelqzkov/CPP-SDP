@@ -28,28 +28,50 @@ std::string makeExp(const std::string &exp)
     std::string res = "";
     std::string temp = "";
     bool level = false;
+    bool inside = false;
+    bool normal = true;
     int counter = 0;
-    for (char s : exp)
+    for (size_t i = 0; i < exp.size(); ++i)
     {
-        if (isItNumber(s))
+        if (isItNumber(exp[i]))
         {
-            num.push(fromCharToInt(s));
-        }
-        else if (s == '[' || isItLetter(s))
-        {
-            if (s == '[')
+            if (i > 0)
             {
-                counter++;
-                if (counter > 1)
+                int k = i-1;
+                if (isItLetter(exp[k]))
                 {
-                    level = true;
+                    inside = true;
+                    normal = false;
+                }
+                else if (exp[k] == ']')
+                {
+                    inside = false;
+                    normal = true;
                 }
             }
-            symbols.push(s);
+
+            // while (isItNumber(exp[k]))
+            // {
+            //     --k;
+            // }
+
+            num.push(fromCharToInt(exp[i]));
         }
-        else if (s == ']')
+        else if (exp[i] == '[' || isItLetter(exp[i]))
         {
-            if (counter >= 1 && level)
+            if (exp[i] == '[')
+            {
+                 counter++;
+                // if (counter > 1)
+                // {
+                //     level = true;
+                // }
+            }
+            symbols.push(exp[i]);
+        }
+        else if (exp[i] == ']')
+        {
+            if (counter >= 1  && inside)
             {
                 while (symbols.top() != '[' && !symbols.empty())
                 {
@@ -58,7 +80,7 @@ std::string makeExp(const std::string &exp)
                 }
                 symbols.pop();
                 std::string t = temp;
-                for (size_t i = 0; i < num.top() - 1; i++)
+                for (size_t j = 0; j < num.top() - 1; ++j)
                 {
                     temp += t;
                 }
@@ -66,12 +88,12 @@ std::string makeExp(const std::string &exp)
                 counter--;
                 if (counter == 0)
                 {
-                    level = false;
+                   // level = false;
                     res += temp;
                 }
                 num.pop();
             }
-            else if (counter == 1 && !level)
+            else if (counter >= 1  && !inside)
             {
                 temp = "";
                 while (symbols.top() != '[' && !symbols.empty())
@@ -82,7 +104,7 @@ std::string makeExp(const std::string &exp)
                 symbols.pop();
                 if (!num.empty())
                 {
-                    for (size_t i = 0; i < num.top(); i++)
+                    for (size_t j = 0; j < num.top(); ++j)
                     {
                         res += temp;
                     }
@@ -95,12 +117,13 @@ std::string makeExp(const std::string &exp)
     }
     // res = temp;
     return res;
+    
 }
 int main()
 {
     //abbgbg
     //chastichen uspeh
-    std::string temp = "3[ab2[jg]3[vc]]3[gz]2[ds]";
+    std::string temp = "3[ab2[jg]]3[gz]2[ds]";
     std::cout << makeExp(temp);
     // temp.insert(temp.begin(), 'f');
     // std::cout << temp << std::endl;
