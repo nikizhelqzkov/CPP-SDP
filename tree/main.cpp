@@ -34,7 +34,7 @@ int main()
     std::cout << std::endl;
     //std::ofstream output("myTree.dot");
     // t.printDot(output);
-    //std::cout << t.count();
-    std::cout << t.countEvens();
+    std::cout << t.count();
+    //std::cout << t.countEvens();
     return 0;
 }

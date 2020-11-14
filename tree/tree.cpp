@@ -147,7 +147,8 @@ void Tree::erase(const int &data)
 }
 int Tree::count() const
 {
-    return countHelper(root);
+    //return countHelper(root);
+    return countFHelper(root, [](int el) -> bool { return true; });
 }
 int Tree::countHelper(Tree::Node *_root) const
 {
