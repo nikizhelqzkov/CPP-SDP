@@ -28,9 +28,13 @@ int main()
     t.add(6);
     t.add(5);
     t.add(7);
+
     //  t.erase(7);
     t.print();
-    std::ofstream output("myTree.dot");
-    t.printDot(output);
+    std::cout << std::endl;
+    //std::ofstream output("myTree.dot");
+    // t.printDot(output);
+    //std::cout << t.count();
+    std::cout << t.countEvens();
     return 0;
 }

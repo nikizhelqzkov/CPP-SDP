@@ -145,3 +145,31 @@ void Tree::erase(const int &data)
 {
     eraseHelper(data, root);
 }
+int Tree::count() const
+{
+    return countHelper(root);
+}
+int Tree::countHelper(Tree::Node *_root) const
+{
+    if (!_root)
+    {
+        return 0;
+    }
+    return 1 + countHelper(_root->left) + countHelper(_root->right);
+}
+int Tree::countFHelper(Tree::Node *_root, bool (*f)(int)) const
+{
+    if (!_root)
+    {
+        return 0;
+    }
+    if (f(_root->data))
+    {
+        return 1 + countFHelper(_root->left, f) + countFHelper(_root->right, f);
+    }
+    return countFHelper(_root->left, f) + countFHelper(_root->right, f);
+}
+int Tree::countEvens() const
+{
+    return countFHelper(root, [](int el) -> bool { return el % 2 == 0; });
+}

@@ -19,6 +19,8 @@ private:
     void printDotHelper(std::ostream& , Node*)const;
     void eraseHelper(const int&,Node*&);
     Node* findMaxInLeftSubtree(Node*);
+    int countHelper(Node*)const;
+    int countFHelper(Node*, bool(*f)(int))const;
 
 public:
     Tree();
@@ -28,6 +30,8 @@ public:
     void print()const;
     void printDot(std::ostream&)const;
     void erase(const int&);
+    int count()const;
+    int countEvens()const;
     ~Tree();
 };
 
