@@ -42,7 +42,7 @@ void Tree::addHelper(const int &data, Tree::Node *&_root)
     {
         addHelper(data, _root->left);
     }
-    else if (data > root->data)
+    else if (data > _root->data)
     {
         addHelper(data, _root->right);
     }
@@ -72,7 +72,8 @@ void Tree::printDotHelper(std::ostream &out, Tree::Node *_root) const
     if (_root->left)
     {
         out << (long)_root << "->" << (long)_root->left << std::endl;
-    } if (_root->right)
+    }
+    if (_root->right)
     {
         out << (long)_root << "->" << (long)_root->right << std::endl;
     }
@@ -88,4 +89,59 @@ void Tree::printDot(std::ostream &out) const
 
     printDotHelper(out, root);
     out << "}";
+}
+
+void Tree::eraseHelper(const int &data, Tree::Node *&_root)
+{
+    if (!_root)
+    {
+        return;
+    }
+    if (data < _root->data)
+    {
+        eraseHelper(data, _root->left);
+    }
+    else if (data > _root->data)
+    {
+        eraseHelper(data, _root->right);
+    }
+    else
+    {
+        if (!_root->left && !_root->right)
+        {
+            Tree::Node *save = _root;
+            _root = nullptr;
+            delete save;
+        }
+        else if (!_root->left && _root->right)
+        {
+            Tree::Node *save = _root;
+            _root = _root->right;
+            delete save;
+        }
+        else if (_root->left && !_root->right)
+        {
+            Tree::Node *save = _root;
+            _root = _root->left;
+            delete save;
+        }
+        else
+        {
+            Tree::Node *maxLeftSubTree = findMaxInLeftSubtree(_root->left);
+            std::swap(_root->data, maxLeftSubTree->data);
+            eraseHelper(data, _root->left);
+        }
+    }
+}
+Tree::Node *Tree::findMaxInLeftSubtree(Tree::Node *_root)
+{
+    while (_root->right)
+    {
+        _root = _root->right;
+    }
+    return _root;
+}
+void Tree::erase(const int &data)
+{
+    eraseHelper(data, root);
 }

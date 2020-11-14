@@ -17,7 +17,8 @@ private:
     bool memberHelper(const int&, const Node*)const;
     void printHelper(Node*)const;
     void printDotHelper(std::ostream& , Node*)const;
-    void eraseHelper(Node*&);
+    void eraseHelper(const int&,Node*&);
+    Node* findMaxInLeftSubtree(Node*);
 
 public:
     Tree();
@@ -26,7 +27,7 @@ public:
     bool empty()const;
     void print()const;
     void printDot(std::ostream&)const;
-    void erase();
+    void erase(const int&);
     ~Tree();
 };
 
