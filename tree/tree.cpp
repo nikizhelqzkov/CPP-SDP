@@ -216,10 +216,15 @@ int Tree::maxHelperLeave(Tree::Node *_root) const
     }
     else
     {
-       return maxHelperLeave(_root->right);
+        return maxHelperLeave(_root->right);
     }
 }
 int Tree::maxLeave() const
 {
+    if (empty())
+    {
+        throw "Empty tree";
+        return INT_MIN;
+    }
     return maxHelperLeave(root);
 }
