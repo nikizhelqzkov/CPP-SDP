@@ -21,6 +21,7 @@ private:
     Node* findMaxInLeftSubtree(Node*);
     int countHelper(Node*)const;
     int countFHelper(Node*, bool(*f)(int))const;
+    int heightHelper(Node*)const;
 
 public:
     Tree();
@@ -32,6 +33,7 @@ public:
     void erase(const int&);
     int count()const;
     int countEvens()const;
+    int height()const;
     ~Tree();
 };
 

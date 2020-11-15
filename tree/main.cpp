@@ -32,9 +32,10 @@ int main()
     //  t.erase(7);
     t.print();
     std::cout << std::endl;
-    //std::ofstream output("myTree.dot");
-    // t.printDot(output);
-    std::cout << t.count();
+    // std::ofstream output("myTree.dot");
+    //  t.printDot(output);
+    // std::cout << t.count();
     //std::cout << t.countEvens();
+    std::cout<<t.height();
     return 0;
 }

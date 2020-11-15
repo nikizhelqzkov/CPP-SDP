@@ -1,5 +1,5 @@
 #include "tree.h"
-
+#include <algorithm>
 Tree::Tree() : root(nullptr)
 {
 }
@@ -174,3 +174,22 @@ int Tree::countEvens() const
 {
     return countFHelper(root, [](int el) -> bool { return el % 2 == 0; });
 }
+int Tree::heightHelper(Tree::Node *_root) const
+{
+    if (!_root)
+    {
+        return 0;
+    }
+    return 1 + std::max(heightHelper(_root->left), heightHelper(_root->right));
+}
+int Tree::height() const
+{
+    return heightHelper(root);
+}
+/*
+zadacha za height
+if empty -> 0
+else
+max((1+lqva),(1+dqsna)
+
+*/
