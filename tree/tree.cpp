@@ -186,10 +186,40 @@ int Tree::height() const
 {
     return heightHelper(root);
 }
-/*
-zadacha za height
-if empty -> 0
-else
-max((1+lqva),(1+dqsna)
+int Tree::countHelperLeaves(Tree::Node *_root) const
+{
+    if (!_root)
+    {
+        return 0;
+    }
+    if (!_root->left && !_root->right && _root)
+    {
+        return 1;
+    }
+    return countHelperLeaves(_root->left) + countHelperLeaves(_root->right);
+}
+int Tree::countLeaves() const
+{
+    return countHelperLeaves(root);
+}
 
-*/
+int Tree::maxHelperLeave(Tree::Node *_root) const
+{
+
+    if (!_root->left && !_root->right && _root)
+    {
+        return _root->data;
+    }
+    else if (!_root->right && root && _root->left)
+    {
+        return maxHelperLeave(_root->left);
+    }
+    else
+    {
+       return maxHelperLeave(_root->right);
+    }
+}
+int Tree::maxLeave() const
+{
+    return maxHelperLeave(root);
+}

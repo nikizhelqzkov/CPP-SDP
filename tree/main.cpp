@@ -36,6 +36,8 @@ int main()
     //  t.printDot(output);
     // std::cout << t.count();
     //std::cout << t.countEvens();
-    std::cout<<t.height();
+    //std::cout<<t.height()<<std::endl;
+    //std::cout<<t.countLeaves()<<std::endl;
+    std::cout<<t.maxLeave()<<std::endl;
     return 0;
 }
