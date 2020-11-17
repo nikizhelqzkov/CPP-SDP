@@ -5,9 +5,6 @@ Tree::Tree() : root(nullptr)
 {
 }
 
-Tree::~Tree()
-{
-}
 bool Tree::empty() const
 {
     return !root;
@@ -306,4 +303,36 @@ int Tree::operator[](const char *s) const
 void Tree::set(int element, const char *s)
 {
     locate(s)->data = element;
+}
+void Tree::clearHelper(Tree::Node *&current)
+{
+    if (!current)
+    {
+        return;
+    }
+    if (current && !current->left && !current->right)
+    {
+        //std::cout << "deleted " << current->data << std::endl;
+        Tree::Node *save = current;
+        current = nullptr;
+        delete save;
+        return;
+    }
+    clearHelper(current->left);
+    clearHelper(current->right);
+    if (current && !current->left && !current->right)
+    {
+       // std::cout << "deleted " << current->data << std::endl;
+        Tree::Node *save = current;
+        current = nullptr;
+        delete save;
+    }
+}
+void Tree::clear()
+{
+    clearHelper(root);
+}
+Tree::~Tree()
+{
+    clear();
 }

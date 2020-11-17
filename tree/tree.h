@@ -27,6 +27,9 @@ private:
     int maxLeaveNewHelper(Node *, int) ;
     int& theLeftestLeaf(Node*)const;
     Node* locate(const char*)const;
+    void clear();
+    void clearHelper(Node*&);
+
 
 public:
     Tree();

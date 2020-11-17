@@ -41,7 +41,7 @@ int main()
         // std::cout << t.countLeaves() << std::endl;
         // std::cout << t.maxLeave() << std::endl;
         // std::cout << t.maxLeaveNew() << std::endl;
-        std::cout << t["gL"];
+        //std::cout << t["RL"];
     }
     catch (const char *err)
     {
