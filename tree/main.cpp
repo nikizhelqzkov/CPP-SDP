@@ -30,14 +30,16 @@ int main()
     t.add(7);
 
     //  t.erase(7);
-    t.print();
-    std::cout << std::endl;
+    // t.print();
+    // std::cout << std::endl;
     // std::ofstream output("myTree.dot");
-    //  t.printDot(output);
-    // std::cout << t.count();
-    //std::cout << t.countEvens();
-    //std::cout<<t.height()<<std::endl;
-    //std::cout<<t.countLeaves()<<std::endl;
-    std::cout<<t.maxLeave()<<std::endl;
+    // t.printDot(output);
+    // std::cout << t.count() << std::endl;
+    // std::cout << t.countEvens() << std::endl;
+    // std::cout << t.height() << std::endl;
+    // std::cout << t.countLeaves() << std::endl;
+    // std::cout << t.maxLeave() << std::endl;
+    //std::cout << t.maxLeaveNew() << std::endl;
+
     return 0;
 }

@@ -228,3 +228,39 @@ int Tree::maxLeave() const
     }
     return maxHelperLeave(root);
 }
+int &Tree::theLeftestLeaf(Tree::Node *current) const
+{
+    while (current->left || current->right)
+    {
+        if (!current->left && current->right)
+        {
+            current = current->right;
+        }
+        else
+        {
+            current = current->left;
+        }
+        if (!current->left && !current->right)
+        {
+            return current->data;
+        }
+    }
+    return current->data;
+}
+int Tree::maxLeaveNewHelper(Tree::Node *current, int data)
+{
+    if (!current)
+    {
+        return data;
+    }
+    if (current && !current->left && !current->right)
+    {
+        data = std::max(data, current->data);
+    }
+    return std::max(maxLeaveNewHelper(current->left, data), maxLeaveNewHelper(current->right, data));
+}
+int Tree::maxLeaveNew()
+{
+    int data = theLeftestLeaf(root);
+    return maxLeaveNewHelper(root, data);
+}

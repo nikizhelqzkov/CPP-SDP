@@ -24,6 +24,8 @@ private:
     int heightHelper(Node *) const;
     int countHelperLeaves(Node *) const;
     int maxHelperLeave(Node *) const;
+    int maxLeaveNewHelper(Node *, int) ;
+    int& theLeftestLeaf(Node*)const;
 
 public:
     Tree();
@@ -38,6 +40,7 @@ public:
     int height() const;
     int countLeaves() const;
     int maxLeave() const;
+    int maxLeaveNew() ;
     ~Tree();
 };
 
