@@ -1,5 +1,6 @@
 #include "tree.h"
 #include <algorithm>
+#include <exception>
 Tree::Tree() : root(nullptr)
 {
 }
@@ -263,4 +264,46 @@ int Tree::maxLeaveNew()
 {
     int data = theLeftestLeaf(root);
     return maxLeaveNewHelper(root, data);
+}
+Tree::Node *Tree::locate(const char *s) const
+{
+    if (empty())
+    {
+        throw std::out_of_range("Empty tree at the locate method -> 274 line");
+    }
+
+    if (s[0] == 0)
+    {
+        return root;
+    }
+    Tree::Node *current = root;
+    while (current && s[0] != 0)
+    {
+        if (s[0] != 'L' && s[0] != 'R')
+        {
+            throw "Error symbol at the locate method -> 286 line";
+        }
+        if (s[0] == 'L')
+        {
+            current = current->left;
+        }
+        else
+        {
+            current = current->right;
+        }
+        ++s;
+    }
+    if (!current)
+    {
+        throw std::out_of_range("Error road in locate on 300 line");
+    }
+    return current;
+}
+int Tree::operator[](const char *s) const
+{
+    return locate(s)->data;
+}
+void Tree::set(int element, const char *s)
+{
+    locate(s)->data = element;
 }

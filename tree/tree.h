@@ -26,6 +26,7 @@ private:
     int maxHelperLeave(Node *) const;
     int maxLeaveNewHelper(Node *, int) ;
     int& theLeftestLeaf(Node*)const;
+    Node* locate(const char*)const;
 
 public:
     Tree();
@@ -40,7 +41,9 @@ public:
     int height() const;
     int countLeaves() const;
     int maxLeave() const;
-    int maxLeaveNew() ;
+    int maxLeaveNew();
+    int operator[](const char*)const;
+    void set(int, const char*);
     ~Tree();
 };
 
