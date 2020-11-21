@@ -1,4 +1,10 @@
+
 #include <iostream>
-int main(){
-    std::cout<<"f";
+
+
+
+int main()
+{
+   
+    return 0;
 }
