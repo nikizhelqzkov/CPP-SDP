@@ -42,7 +42,7 @@ TEST_CASE("Member test")
         test.pushSorted(21 + count);
     }
 
-  //  test.skipping ();
+    test.skipping ();
     bool t = test.member(61);
     CHECK(test.member(0));
     CHECK(test.member(10));

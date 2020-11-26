@@ -1,4 +1,7 @@
 #include "tree.h"
+#include <stack>
+#include <queue>
+#include <vector>
 #include <algorithm>
 #include <exception>
 Tree::Tree() : root(nullptr)
@@ -322,7 +325,7 @@ void Tree::clearHelper(Tree::Node *&current)
     clearHelper(current->right);
     if (current && !current->left && !current->right)
     {
-       // std::cout << "deleted " << current->data << std::endl;
+        // std::cout << "deleted " << current->data << std::endl;
         Tree::Node *save = current;
         current = nullptr;
         delete save;
@@ -335,4 +338,44 @@ void Tree::clear()
 Tree::~Tree()
 {
     clear();
+}
+
+void Tree::DFS(Tree::Node *t) const
+{
+    std::stack<Tree::Node *> stack;
+    stack.push(t);
+
+    while (!stack.empty())
+    {
+        Tree::Node *curr = stack.top();
+        stack.pop();
+
+        std::cout << curr->data << " -> ";
+
+        if (!curr->left && !curr->right)
+        {
+            continue;
+        }
+
+        stack.push(curr->left);
+        stack.push(curr->right);
+    }
+}
+void Tree::BFS(Tree::Node *root) const
+{
+    std::queue<Tree::Node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        Tree::Node *cur = q.front();
+        q.pop();
+        std::cout << cur->data << " -> ";
+        if (!cur->left && !cur->right)
+        {
+            continue;
+        }
+
+        q.push(cur->left);
+        q.push(cur->right);
+    }
 }
