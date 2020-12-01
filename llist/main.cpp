@@ -3,11 +3,11 @@
 //#include <iostream>
 int main()
 {
-    Node<int> *el = new Node<int>(3, new Node<int>(5, new Node<int>(7, new Node<int>(2, nullptr))));
-    //printNode(reverse(el));
-    // Node<int> newEl = pushN(el);
-    printNode(el);
-    pushN(el);
+    // Node<int> *el = new Node<int>(3, new Node<int>(5, new Node<int>(7, new Node<int>(2, nullptr))));
+    // //printNode(reverse(el));
+    // // Node<int> newEl = pushN(el);
+    // printNode(el);
+    // pushN(el);
     std::cout << "\n";
     ListNode *elem = new ListNode(2, new ListNode(4, new ListNode(3, nullptr)));
     ListNode *elem2 = new ListNode(5, new ListNode(6, new ListNode(4, nullptr)));
@@ -17,7 +17,8 @@ int main()
     printNode(addTwoNumbers(el3, el4));
 
     Node<int> *el = new Node<int>(1024, new Node<int>(16, new Node<int>(4, new Node<int>(2, nullptr))));
-    std::cout << reduce(el, del);
+    std::cout << reduce(el, +[](const int&a,const int&b)->int {return a/b;})<<std::endl;
+    //std::cout << reduce(el, del)<<std::endl;
     Node<int> *el2 = new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, nullptr)))));
     shuffle(el2);
 

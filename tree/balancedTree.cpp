@@ -80,23 +80,26 @@ int BalancedTree::balance(BalancedTree::Node *&_root) const
 void BalancedTree::leftRotate(BalancedTree::Node *&_root)
 {
     BalancedTree::Node *rightChild = _root->right;
-    BalancedTree::Node *leftGrand = rightChild->left;
-    BalancedTree::Node *temp = _root;
-
+    if (rightChild->left)
+    {
+        BalancedTree::Node *leftGrand = rightChild->left;
+        _root->right = leftGrand;
+    }
+    rightChild->left = _root;
     _root = rightChild;
-    _root->left = temp;
-    _root->left->right = leftGrand;
 }
 void BalancedTree::rightRotate(BalancedTree::Node *&_root)
 {
 
     BalancedTree::Node *leftChild = _root->left;
-    BalancedTree::Node *rightGrand = leftChild->right;
-    BalancedTree::Node *temp = _root;
+    if (leftChild->right)
+    {
+        BalancedTree::Node *rightGrand = leftChild->right;
+        _root->left = rightGrand;
+    }
 
+    leftChild->right = _root;
     _root = leftChild;
-    _root->right = temp;
-    _root->right->left = rightGrand;
 }
 void BalancedTree::printHelper(BalancedTree::Node *_root) const
 {
@@ -109,7 +112,7 @@ void BalancedTree::printHelper(BalancedTree::Node *_root) const
     printHelper(_root->right);
 }
 void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) const
-{ 
+{
     if (!_root)
     {
         return;
@@ -118,7 +121,7 @@ void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) 
     out << (long)_root << "[label=\"" << _root->data << "\"];\n";
     if (_root->left)
     {
-        out << (long)_root << "->" << (long)_root->left <<"[color=blue];\n";
+        out << (long)_root << "->" << (long)_root->left << "[color=blue];\n";
     }
     if (_root->right)
     {
