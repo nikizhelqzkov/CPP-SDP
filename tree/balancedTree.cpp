@@ -60,11 +60,11 @@ void BalancedTree::addHelper(const int &data, BalancedTree::Node *&_root)
     }
     else if (bal > 1 && data > _root->left->data)
     {
+        leftRotate(_root->left);
         rightRotate(_root);
     }
     else if (bal > 1 && data < _root->left->data)
     {
-        leftRotate(_root->left);
         rightRotate(_root);
     }
 }

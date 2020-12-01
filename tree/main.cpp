@@ -1,4 +1,4 @@
-#include "tree.h"
+//#include "tree.h"
 #include "balancedTree.h"
 #include <fstream>
 
@@ -12,30 +12,30 @@ int main()
 
     try
     {
-        Tree t;
-        t.add(-9);
-        t.add(7);
-        t.add(3);
-        t.add(4);
-        t.add(5);
-        t.add(6);
-        t.add(7);
-        t.add(8);
-        t.add(9);
-        t.add(10);
-        t.add(-2);
-        t.add(-1);
-        t.add(-5);
-        t.add(12);
-        t.add(111);
-        t.add(15);
+        // Tree t;
+        // t.add(-9);
+        // t.add(7);
+        // t.add(3);
+        // t.add(4);
+        // t.add(5);
+        // t.add(6);
+        // t.add(7);
+        // t.add(8);
+        // t.add(9);
+        // t.add(10);
+        // t.add(-2);
+        // t.add(-1);
+        // t.add(-5);
+        // t.add(12);
+        // t.add(111);
+        // t.add(15);
 
         // t.erase(7);
         // t.print();
         // std::cout << std::endl;
-        std::ofstream output("myTree.dot");
-        t.printDot(output);
-        output.close();
+        // std::ofstream output("myTree.dot");
+        // t.printDot(output);
+        // output.close();
         // std::cout << t.count() << std::endl;
         // std::cout << t.countEvens() << std::endl;
         // std::cout << t.height() << std::endl;
