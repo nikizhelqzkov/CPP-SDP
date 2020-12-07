@@ -1,5 +1,4 @@
 #include "balancedTree.h"
-#include <stack>
 #include <queue>
 #include <vector>
 #include <algorithm>
@@ -38,13 +37,17 @@ void BalancedTree::addHelper(const int &data, BalancedTree::Node *&_root)
     {
         _root = new BalancedTree::Node{data};
     }
-    else if (data < _root->data)
+    else
     {
-        addHelper(data, _root->left);
-    }
-    else if (data > _root->data)
-    {
-        addHelper(data, _root->right);
+        if (data < _root->data)
+        {
+            addHelper(data, _root->left);
+        }
+
+        else
+        {
+            addHelper(data, _root->right);
+        }
     }
     _root->height = 1 + std::max(heightHelper(_root->left), heightHelper(_root->right));
     int bal = balance(_root);
@@ -53,21 +56,22 @@ void BalancedTree::addHelper(const int &data, BalancedTree::Node *&_root)
     {
         leftRotate(_root);
     }
-    else if (bal < -1 && data < _root->right->data)
+    if (bal < -1 && data < _root->right->data)
     {
         rightRotate(_root->right);
         leftRotate(_root);
     }
-    else if (bal > 1 && data > _root->left->data)
+    if (bal > 1 && data < _root->left->data)
     {
         rightRotate(_root);
     }
-    else if (bal > 1 && data < _root->left->data)
+    if (bal > 1 && data < _root->left->data)
     {
         leftRotate(_root->left);
         rightRotate(_root);
     }
 }
+
 void BalancedTree::add(const int &data)
 {
     addHelper(data, root);
@@ -109,7 +113,7 @@ void BalancedTree::printHelper(BalancedTree::Node *_root) const
     printHelper(_root->right);
 }
 void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) const
-{ 
+{
     if (!_root)
     {
         return;
@@ -118,7 +122,7 @@ void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) 
     out << (long)_root << "[label=\"" << _root->data << "\"];\n";
     if (_root->left)
     {
-        out << (long)_root << "->" << (long)_root->left <<"[color=blue];\n";
+        out << (long)_root << "->" << (long)_root->left << "[color=blue];\n";
     }
     if (_root->right)
     {
@@ -384,7 +388,7 @@ BalancedTree::~BalancedTree()
     clear();
 }
 
-void BalancedTree::DFS(BalancedTree::Node *t) const
+void BalancedTree::DFSrlr(BalancedTree::Node *t) const
 {
     std::stack<BalancedTree::Node *> stack;
     stack.push(t);
@@ -405,7 +409,7 @@ void BalancedTree::DFS(BalancedTree::Node *t) const
         stack.push(curr->right);
     }
 }
-void BalancedTree::BFS(BalancedTree::Node *root) const
+void BalancedTree::BFSHelper(BalancedTree::Node *root) const
 {
     std::queue<BalancedTree::Node *> q;
     q.push(root);
@@ -422,4 +426,90 @@ void BalancedTree::BFS(BalancedTree::Node *root) const
         q.push(cur->left);
         q.push(cur->right);
     }
+}
+void BalancedTree::bfs() const
+{
+    BFSHelper(root);
+}
+void BalancedTree::dfsHelper(BalancedTree::Node *_root) const
+{
+    std::stack<BalancedTree::Wrapper> s;
+    s.push({_root, false});
+    while (!s.empty())
+    {
+        BalancedTree::Wrapper cur = s.top();
+        s.pop();
+        if (cur.toProduce)
+        {
+            std::cout << cur.node->data;
+        }
+        else
+        {
+            if (cur.node->right)
+            {
+                s.push({cur.node->right, false});
+            }
+            s.push({cur.node, true});
+            if (cur.node->left)
+            {
+                s.push({cur.node->left, false});
+            }
+        }
+    }
+}
+void BalancedTree::dfs() const
+{
+    dfsHelper(root);
+}
+BalancedTree::Iterator::Iterator(BalancedTree::Node *_node)
+{
+    elements.push({_node, false});
+    unwind();
+}
+void BalancedTree::Iterator::unwind()
+{
+    while (!elements.empty() && !elements.top().toProduce)
+    {
+        BalancedTree::Wrapper cur = elements.top();
+        elements.pop();
+        if (cur.node)
+        {
+            if (cur.node->right)
+            {
+                elements.push({cur.node->right, false});
+            }
+            elements.push({cur.node, true});
+            if (cur.node->left)
+            {
+                elements.push({cur.node->left, false});
+            }
+        }
+    }
+}
+
+bool BalancedTree::Iterator::operator!=(const BalancedTree::Iterator &other)
+{
+    return other.elements.empty() && !elements.empty();
+}
+BalancedTree::Iterator &BalancedTree::Iterator::operator++()
+{
+    elements.pop();
+    unwind();
+    return *this;
+}
+int BalancedTree::Iterator::operator*() const
+{
+    if (elements.empty())
+    {
+        throw std::runtime_error("No elements");
+    }
+    return elements.top().node->data;
+}
+BalancedTree::Iterator BalancedTree::begin()
+{
+    return BalancedTree::Iterator(root);
+}
+BalancedTree::Iterator BalancedTree::end()
+{
+    return BalancedTree::Iterator(nullptr);
 }
