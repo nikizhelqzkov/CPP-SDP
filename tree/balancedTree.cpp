@@ -3,15 +3,17 @@
 #include <vector>
 #include <algorithm>
 #include <exception>
-BalancedTree::BalancedTree() : root(nullptr)
+template <class T>
+BalancedTree<T>::BalancedTree() : root(nullptr)
 {
 }
-
-bool BalancedTree::empty() const
+template <class T>
+bool BalancedTree<T>::empty() const
 {
     return !root;
 }
-bool BalancedTree::memberHelper(const int &data, const BalancedTree::Node *_root) const
+template <class T>
+bool BalancedTree<T>::memberHelper(const T &data, const BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -27,15 +29,17 @@ bool BalancedTree::memberHelper(const int &data, const BalancedTree::Node *_root
     }
     return true;
 }
-bool BalancedTree::member(const int &data) const
+template <class T>
+bool BalancedTree<T>::member(const T &data) const
 {
     return memberHelper(data, root);
 }
-void BalancedTree::addHelper(const int &data, BalancedTree::Node *&_root)
+template <class T>
+void BalancedTree<T>::addHelper(const T &data, BalancedTree<T>::Node *&_root)
 {
     if (!_root)
     {
-        _root = new BalancedTree::Node{data};
+        _root = new BalancedTree<T>::Node{data};
     }
     else
     {
@@ -71,38 +75,42 @@ void BalancedTree::addHelper(const int &data, BalancedTree::Node *&_root)
         rightRotate(_root);
     }
 }
-
-void BalancedTree::add(const int &data)
+template <class T>
+void BalancedTree<T>::add(const T &data)
 {
     addHelper(data, root);
 }
-
-int BalancedTree::balance(BalancedTree::Node *&_root) const
+template <class T>
+int BalancedTree<T>::balance(BalancedTree<T>::Node *&_root) const
 {
     return heightHelper(_root->left) - heightHelper(_root->right);
 }
-void BalancedTree::leftRotate(BalancedTree::Node *&_root)
+
+template <class T>
+void BalancedTree<T>::leftRotate(BalancedTree<T>::Node *&_root)
 {
-    BalancedTree::Node *rightChild = _root->right;
-    BalancedTree::Node *leftGrand = rightChild->left;
-    BalancedTree::Node *temp = _root;
+    BalancedTree<T>::Node *rightChild = _root->right;
+    BalancedTree<T>::Node *leftGrand = rightChild->left;
+    BalancedTree<T>::Node *temp = _root;
 
     _root = rightChild;
     _root->left = temp;
     _root->left->right = leftGrand;
 }
-void BalancedTree::rightRotate(BalancedTree::Node *&_root)
+template <class T>
+void BalancedTree<T>::rightRotate(BalancedTree<T>::Node *&_root)
 {
 
-    BalancedTree::Node *leftChild = _root->left;
-    BalancedTree::Node *rightGrand = leftChild->right;
-    BalancedTree::Node *temp = _root;
+    BalancedTree<T>::Node *leftChild = _root->left;
+    BalancedTree<T>::Node *rightGrand = leftChild->right;
+    BalancedTree<T>::Node *temp = _root;
 
     _root = leftChild;
     _root->right = temp;
     _root->right->left = rightGrand;
 }
-void BalancedTree::printHelper(BalancedTree::Node *_root) const
+template <class T>
+void BalancedTree<T>::printHelper(BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -112,7 +120,8 @@ void BalancedTree::printHelper(BalancedTree::Node *_root) const
     std::cout << _root->data << " ";
     printHelper(_root->right);
 }
-void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) const
+template <class T>
+void BalancedTree<T>::printDotHelper(std::ostream &out, BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -130,18 +139,21 @@ void BalancedTree::printDotHelper(std::ostream &out, BalancedTree::Node *_root) 
     }
     printDotHelper(out, _root->right);
 }
-void BalancedTree::print() const
+
+template <class T>
+void BalancedTree<T>::print() const
 {
     printHelper(root);
 }
-void BalancedTree::printDot(std::ostream &out) const
+template <class T>
+void BalancedTree<T>::printDot(std::ostream &out) const
 {
     out << "digraph G{\n";
     printDotHelper(out, root);
     out << "}";
 }
-
-void BalancedTree::eraseHelper(const int &data, BalancedTree::Node *&_root)
+template <class T>
+void BalancedTree<T>::eraseHelper(const T &data, BalancedTree<T>::Node *&_root)
 {
     if (!_root)
     {
@@ -159,31 +171,32 @@ void BalancedTree::eraseHelper(const int &data, BalancedTree::Node *&_root)
     {
         if (!_root->left && !_root->right)
         {
-            BalancedTree::Node *save = _root;
+            BalancedTree<T>::Node *save = _root;
             _root = nullptr;
             delete save;
         }
         else if (!_root->left && _root->right)
         {
-            BalancedTree::Node *save = _root;
+            BalancedTree<T>::Node *save = _root;
             _root = _root->right;
             delete save;
         }
         else if (_root->left && !_root->right)
         {
-            BalancedTree::Node *save = _root;
+            BalancedTree<T>::Node *save = _root;
             _root = _root->left;
             delete save;
         }
         else
         {
-            BalancedTree::Node *maxLeftSubBalancedTree = findMaxInLeftSubBalancedTree(_root->left);
+            BalancedTree<T>::Node *maxLeftSubBalancedTree = findMaxInLeftSubBalancedTree(_root->left);
             std::swap(_root->data, maxLeftSubBalancedTree->data);
             eraseHelper(data, _root->left);
         }
     }
 }
-BalancedTree::Node *BalancedTree::findMaxInLeftSubBalancedTree(BalancedTree::Node *_root)
+template <class T>
+BalancedTree<T>::Node *BalancedTree<T>::findMaxInLeftSubBalancedTree(BalancedTree<T>::Node *_root)
 {
     while (_root->right)
     {
@@ -191,15 +204,18 @@ BalancedTree::Node *BalancedTree::findMaxInLeftSubBalancedTree(BalancedTree::Nod
     }
     return _root;
 }
-void BalancedTree::erase(const int &data)
+template <class T>
+void BalancedTree<T>::erase(const T &data)
 {
     eraseHelper(data, root);
 }
-int BalancedTree::count() const
+template <class T>
+int BalancedTree<T>::count() const
 {
-    return countFHelper(root, [](int el) -> bool { return true; });
+    return countFHelper(root, [](T el) -> bool { return true; });
 }
-int BalancedTree::countHelper(BalancedTree::Node *_root) const
+template <class T>
+int BalancedTree<T>::countHelper(BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -207,7 +223,8 @@ int BalancedTree::countHelper(BalancedTree::Node *_root) const
     }
     return 1 + countHelper(_root->left) + countHelper(_root->right);
 }
-int BalancedTree::countFHelper(BalancedTree::Node *_root, bool (*f)(int)) const
+template <class T>
+int BalancedTree<T>::countFHelper(BalancedTree<T>::Node *_root, bool (*f)(T)) const
 {
     if (!_root)
     {
@@ -219,11 +236,13 @@ int BalancedTree::countFHelper(BalancedTree::Node *_root, bool (*f)(int)) const
     }
     return countFHelper(_root->left, f) + countFHelper(_root->right, f);
 }
-int BalancedTree::countEvens() const
+template <class T>
+int BalancedTree<T>::countEvens() const
 {
     return countFHelper(root, [](int el) -> bool { return el % 2 == 0; });
 }
-int BalancedTree::heightHelper(BalancedTree::Node *_root) const
+template <class T>
+int BalancedTree<T>::heightHelper(BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -231,11 +250,13 @@ int BalancedTree::heightHelper(BalancedTree::Node *_root) const
     }
     return 1 + std::max(heightHelper(_root->left), heightHelper(_root->right));
 }
-int BalancedTree::height() const
+template <class T>
+int BalancedTree<T>::height() const
 {
     return heightHelper(root);
 }
-int BalancedTree::countHelperLeaves(BalancedTree::Node *_root) const
+template <class T>
+int BalancedTree<T>::countHelperLeaves(BalancedTree<T>::Node *_root) const
 {
     if (!_root)
     {
@@ -247,12 +268,13 @@ int BalancedTree::countHelperLeaves(BalancedTree::Node *_root) const
     }
     return countHelperLeaves(_root->left) + countHelperLeaves(_root->right);
 }
-int BalancedTree::countLeaves() const
+template <class T>
+int BalancedTree<T>::countLeaves() const
 {
     return countHelperLeaves(root);
 }
-
-int BalancedTree::maxHelperLeave(BalancedTree::Node *_root) const
+template <class T>
+T BalancedTree<T>::maxHelperLeave(BalancedTree<T>::Node *_root) const
 {
 
     if (!_root->left && !_root->right && _root)
@@ -268,7 +290,8 @@ int BalancedTree::maxHelperLeave(BalancedTree::Node *_root) const
         return maxHelperLeave(_root->right);
     }
 }
-int BalancedTree::maxLeave() const
+template <class T>
+T BalancedTree<T>::maxLeave() const
 {
     if (empty())
     {
@@ -277,7 +300,8 @@ int BalancedTree::maxLeave() const
     }
     return maxHelperLeave(root);
 }
-int &BalancedTree::theLeftestLeaf(BalancedTree::Node *current) const
+template <class T>
+T &BalancedTree<T>::theLeftestLeaf(BalancedTree<T>::Node *current) const
 {
     while (current->left || current->right)
     {
@@ -296,7 +320,8 @@ int &BalancedTree::theLeftestLeaf(BalancedTree::Node *current) const
     }
     return current->data;
 }
-int BalancedTree::maxLeaveNewHelper(BalancedTree::Node *current, int data)
+template <class T>
+T BalancedTree<T>::maxLeaveNewHelper(BalancedTree<T>::Node *current, T data)
 {
     if (!current)
     {
@@ -308,12 +333,14 @@ int BalancedTree::maxLeaveNewHelper(BalancedTree::Node *current, int data)
     }
     return std::max(maxLeaveNewHelper(current->left, data), maxLeaveNewHelper(current->right, data));
 }
-int BalancedTree::maxLeaveNew()
+template <class T>
+T BalancedTree<T>::maxLeaveNew()
 {
-    int data = theLeftestLeaf(root);
+    T data = theLeftestLeaf(root);
     return maxLeaveNewHelper(root, data);
 }
-BalancedTree::Node *BalancedTree::locate(const char *s) const
+template <class T>
+BalancedTree<T>::Node *BalancedTree<T>::locate(const char *s) const
 {
     if (empty())
     {
@@ -324,7 +351,7 @@ BalancedTree::Node *BalancedTree::locate(const char *s) const
     {
         return root;
     }
-    BalancedTree::Node *current = root;
+    BalancedTree<T>::Node *current = root;
     while (current && s[0] != 0)
     {
         if (s[0] != 'L' && s[0] != 'R')
@@ -347,15 +374,18 @@ BalancedTree::Node *BalancedTree::locate(const char *s) const
     }
     return current;
 }
-int BalancedTree::operator[](const char *s) const
+template <class T>
+T BalancedTree<T>::operator[](const char *s) const
 {
     return locate(s)->data;
 }
-void BalancedTree::set(int element, const char *s)
+template <class T>
+void BalancedTree<T>::set(T element, const char *s)
 {
     locate(s)->data = element;
 }
-void BalancedTree::clearHelper(BalancedTree::Node *&current)
+template <class T>
+void BalancedTree<T>::clearHelper(BalancedTree<T>::Node *&current)
 {
     if (!current)
     {
@@ -363,8 +393,7 @@ void BalancedTree::clearHelper(BalancedTree::Node *&current)
     }
     if (current && !current->left && !current->right)
     {
-        //std::cout << "deleted " << current->data << std::endl;
-        BalancedTree::Node *save = current;
+        BalancedTree<T>::Node *save = current;
         current = nullptr;
         delete save;
         return;
@@ -373,29 +402,30 @@ void BalancedTree::clearHelper(BalancedTree::Node *&current)
     clearHelper(current->right);
     if (current && !current->left && !current->right)
     {
-        // std::cout << "deleted " << current->data << std::endl;
-        BalancedTree::Node *save = current;
+        BalancedTree<T>::Node *save = current;
         current = nullptr;
         delete save;
     }
 }
-void BalancedTree::clear()
+template <class T>
+void BalancedTree<T>::clear()
 {
     clearHelper(root);
 }
-BalancedTree::~BalancedTree()
+template <class T>
+BalancedTree<T>::~BalancedTree()
 {
     clear();
 }
-
-void BalancedTree::DFSrlr(BalancedTree::Node *t) const
+template <class T>
+void BalancedTree<T>::DFSrlr(BalancedTree<T>::Node *t) const
 {
-    std::stack<BalancedTree::Node *> stack;
+    std::stack<BalancedTree<T>::Node *> stack;
     stack.push(t);
 
     while (!stack.empty())
     {
-        BalancedTree::Node *curr = stack.top();
+        BalancedTree<T>::Node *curr = stack.top();
         stack.pop();
 
         std::cout << curr->data << " -> ";
@@ -409,13 +439,14 @@ void BalancedTree::DFSrlr(BalancedTree::Node *t) const
         stack.push(curr->right);
     }
 }
-void BalancedTree::BFSHelper(BalancedTree::Node *root) const
+template <class T>
+void BalancedTree<T>::BFSHelper(BalancedTree<T>::Node *root) const
 {
-    std::queue<BalancedTree::Node *> q;
+    std::queue<BalancedTree<T>::Node *> q;
     q.push(root);
     while (!q.empty())
     {
-        BalancedTree::Node *cur = q.front();
+        BalancedTree<T>::Node *cur = q.front();
         q.pop();
         std::cout << cur->data << " -> ";
         if (!cur->left && !cur->right)
@@ -427,17 +458,19 @@ void BalancedTree::BFSHelper(BalancedTree::Node *root) const
         q.push(cur->right);
     }
 }
-void BalancedTree::bfs() const
+template <class T>
+void BalancedTree<T>::bfs() const
 {
     BFSHelper(root);
 }
-void BalancedTree::dfsHelper(BalancedTree::Node *_root) const
+template <class T>
+void BalancedTree<T>::dfsHelper(BalancedTree<T>::Node *_root) const
 {
-    std::stack<BalancedTree::Wrapper> s;
+    std::stack<BalancedTree<T>::Wrapper> s;
     s.push({_root, false});
     while (!s.empty())
     {
-        BalancedTree::Wrapper cur = s.top();
+        BalancedTree<T>::Wrapper cur = s.top();
         s.pop();
         if (cur.toProduce)
         {
@@ -457,20 +490,23 @@ void BalancedTree::dfsHelper(BalancedTree::Node *_root) const
         }
     }
 }
-void BalancedTree::dfs() const
+template <class T>
+void BalancedTree<T>::dfs() const
 {
     dfsHelper(root);
 }
-BalancedTree::Iterator::Iterator(BalancedTree::Node *_node)
+template <class T>
+BalancedTree<T>::Iterator::Iterator(BalancedTree<T>::Node *_node)
 {
     elements.push({_node, false});
     unwind();
 }
-void BalancedTree::Iterator::unwind()
+template <class T>
+void BalancedTree<T>::Iterator::unwind()
 {
     while (!elements.empty() && !elements.top().toProduce)
     {
-        BalancedTree::Wrapper cur = elements.top();
+        BalancedTree<T>::Wrapper cur = elements.top();
         elements.pop();
         if (cur.node)
         {
@@ -486,18 +522,20 @@ void BalancedTree::Iterator::unwind()
         }
     }
 }
-
-bool BalancedTree::Iterator::operator!=(const BalancedTree::Iterator &other)
+template <class T>
+bool BalancedTree<T>::Iterator::operator!=(const BalancedTree<T>::Iterator &other)
 {
     return other.elements.empty() && !elements.empty();
 }
-BalancedTree::Iterator &BalancedTree::Iterator::operator++()
+template <class T>
+BalancedTree<T>::Iterator &BalancedTree<T>::Iterator::operator++()
 {
     elements.pop();
     unwind();
     return *this;
 }
-int BalancedTree::Iterator::operator*() const
+template <class T>
+T BalancedTree<T>::Iterator::operator*() const
 {
     if (elements.empty())
     {
@@ -505,11 +543,13 @@ int BalancedTree::Iterator::operator*() const
     }
     return elements.top().node->data;
 }
-BalancedTree::Iterator BalancedTree::begin()
+template <class T>
+BalancedTree<T>::Iterator BalancedTree<T>::begin()
 {
-    return BalancedTree::Iterator(root);
+    return BalancedTree<T>::Iterator(root);
 }
-BalancedTree::Iterator BalancedTree::end()
+template <class T>
+BalancedTree<T>::Iterator BalancedTree<T>::end()
 {
-    return BalancedTree::Iterator(nullptr);
+    return BalancedTree<T>::Iterator(nullptr);
 }

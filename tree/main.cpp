@@ -44,7 +44,7 @@ int main()
         // std::cout << t.maxLeaveNew() << std::endl;
         // std::cout << t["RL"];
 
-        BalancedTree bt;
+        BalancedTree<int> bt;
         bt.add(-9);
         bt.add(7);
         bt.add(3);
