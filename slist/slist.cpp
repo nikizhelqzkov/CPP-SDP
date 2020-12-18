@@ -140,5 +140,41 @@ std::ostream &operator<<(std::ostream &out, const slist &list)
         out << current->data << " ";
         current = current->next;
     }
+
+    std::cout << "\nSkippers: ";
+    // typename slist::skipBox *currentSkip = list.first;
+    // while (current != nullptr)
+    // {
+    //     out << current->data << " ";
+    //     current = current->skip;
+    // }
     return out;
+}
+bool slist::find(int elem)
+{
+    if (!first)
+    {
+        return false;
+    }
+
+    typename slist::skipBox *current = first;
+    while (current->skip && current->skip->data < elem)
+    {
+        std::cout << current->data << " ";
+
+        current = current->skip;
+    }
+    typename slist::skipBox *end = current->skip;
+    while (current)
+    {
+        std::cout << current->data << " ";
+        if (current->data == elem)
+        {
+            return true;
+        }
+
+        current = current->next;
+    }
+
+    return false;
 }

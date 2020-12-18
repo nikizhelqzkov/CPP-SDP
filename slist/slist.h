@@ -36,6 +36,7 @@ public:
     slist& operator=(const slist&);
     slist& operator+=(const int&);
     friend std::ostream& operator<<(std::ostream&, const slist&);
+    bool find(int);
 };
 
 #endif
