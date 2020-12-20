@@ -59,3 +59,74 @@ std::set<Vertex> &Graph<Vertex, Weight>::getNeighbours(const Vertex &v)
     }
     return list[v];
 }
+template <class Vertex, class Weight>
+void Graph<Vertex, Weight>::pushInVisiting()
+{
+    for (auto &&vert : vertices)
+    {
+        visited[vert] = false;
+    }
+}
+template <class Vertex, class Weight>
+std::map<Vertex, bool> Graph<Vertex, Weight>::getVisited() const
+{
+    return this->visited;
+}
+template <class Vertex, class Weight>
+void Graph<Vertex, Weight>::dfsHelper(const Vertex &v)
+{
+    if (visited[v])
+    {
+        return;
+    }
+    visited[v] = true;
+    std::cout << v << " ";
+    for (auto &&neigh : list[v])
+    {
+        dfsHelper(neigh);
+    }
+}
+template <class Vertex, class Weight>
+void Graph<Vertex, Weight>::dfs(const Vertex &v)
+{
+    pushInVisiting();
+    if (!hasVertex(v))
+    {
+        std::invalid_argument("No valid vertex");
+        return;
+    }
+    dfsHelper(v);
+    std::cout << "\n";
+}
+template <class Vertex, class Weight>
+void Graph<Vertex, Weight>::bfsHelper(const Vertex &v)
+{
+}
+template <class Vertex, class Weight>
+void Graph<Vertex, Weight>::bfs(const Vertex &v)
+{
+    pushInVisiting();
+    std::queue<Vertex> q;
+    if (!hasVertex(v))
+    {
+        std::invalid_argument("No valid vertex");
+        return;
+    }
+    visited[v] = true;
+    q.push(v);
+    while (!q.empty())
+    {
+        Vertex current = q.front();
+        std::cout << current << " ";
+        q.pop();
+        for (auto &&neigh : list[current])
+        {
+            if (!visited[neigh])
+            {
+                visited[neigh] = true;
+                q.push(neigh);
+            }
+        }
+    }
+    std::cout << "\n";
+}
