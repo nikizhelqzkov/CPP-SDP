@@ -19,6 +19,7 @@ void Graph<Vertex, Weight>::addEdge(const Vertex &v1, const Vertex &v2, Weight w
     vertices.insert(v1);
     vertices.insert(v2);
     list[v1].insert(v2);
+    list[v2];
     edge.insert({std::make_pair(v1, v2), w});
 }
 template <class Vertex, class Weight>
@@ -97,10 +98,6 @@ void Graph<Vertex, Weight>::dfs(const Vertex &v)
     }
     dfsHelper(v);
     std::cout << "\n";
-}
-template <class Vertex, class Weight>
-void Graph<Vertex, Weight>::bfsHelper(const Vertex &v)
-{
 }
 template <class Vertex, class Weight>
 void Graph<Vertex, Weight>::bfs(const Vertex &v)

@@ -1,5 +1,6 @@
 #ifndef __SPECHELPERS__
 #define __SPECHELPERS__
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
- #include "doctest.h"
+#define DOCTEST_CONFIG_IMPLEMENT
+//#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 #endif

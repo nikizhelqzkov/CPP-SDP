@@ -17,7 +17,6 @@ private:
     std::map<Edges, Weight> edge;
     std::map<Vertex, bool> visited;
     void dfsHelper(const Vertex &v);
-    void bfsHelper(const Vertex &v);
 
 public:
     void pushInVisiting();
