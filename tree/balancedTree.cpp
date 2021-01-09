@@ -472,6 +472,7 @@ void BalancedTree<T>::dfsHelper(BalancedTree<T>::Node *_root) const
     {
         BalancedTree<T>::Wrapper cur = s.top();
         s.pop();
+        
         if (cur.toProduce)
         {
             std::cout << cur.node->data;
