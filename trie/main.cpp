@@ -10,6 +10,6 @@ int main()
     tr.add("hrana", 1);
     tr.add("niki", 69);
 
-    // tr.dfsPrint();
+     tr.dfsPrint();
     std::cout << tr.at("koza") << "\n";
 }

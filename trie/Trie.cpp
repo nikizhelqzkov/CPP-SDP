@@ -52,33 +52,33 @@ bool Trie<ValueType, KeyType>::search(const KeyType &_key) const
     typename Trie<ValueType, KeyType>::TrieNode *current = root;
     return current->children.count(_key);
 }
-// template <class ValueType, class KeyType>
-// void Trie<ValueType, KeyType>::dfsPrintHelper(Trie<ValueType, KeyType>::TrieNode *r) const
-// {
-//     if (!r)
-//     {
-//         return;
-//     }
-//     auto [key,n] = r->children;
-//     if (r->endOfWord)
-//     {
-//         std::cout << key << " : " << r->value << "\n";
-//     }
-//     else
-//     {
-//         std::cout << key << " : "
-//                   << "Empty value"
-//                   << "\n";
-//     }
-//     for (auto [key, node] : r->children)
-//     {
-//         dfsPrintHelper(node);
-//     }
-// }
-// template <class ValueType, class KeyType>
-// void Trie<ValueType, KeyType>::dfsPrint() const
-// {
-//     dfsPrintHelper(this->root);
-// }
+template <class ValueType, class KeyType>
+void Trie<ValueType, KeyType>::dfsPrintHelper(Trie<ValueType, KeyType>::TrieNode *r) const
+{
+    if (!r)
+    {
+        return;
+    }
+    if (r->endOfWord)
+    {
+        std::cout << r->value << "\n";
+    }
+    else
+    {
+        std::cout << "EMPTY VALUE"
+                  << "\n";
+    }
+
+    for (auto [key, node] : r->children)
+    {
+        std::cout << key << " : ";
+        dfsPrintHelper(node);
+    }
+}
+template <class ValueType, class KeyType>
+void Trie<ValueType, KeyType>::dfsPrint() const
+{
+    dfsPrintHelper(this->root);
+}
 
 #endif

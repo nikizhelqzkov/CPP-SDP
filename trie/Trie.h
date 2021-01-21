@@ -18,7 +18,7 @@ private:
         TrieNode(bool _endOfWord = false) : endOfWord(_endOfWord) {}
     };
     TrieNode *root;
-    //void dfsPrintHelper(TrieNode *) const;
+    void dfsPrintHelper(TrieNode *) const;
 
 public:
     Trie();
@@ -27,7 +27,7 @@ public:
     void add(const std::pair<std::string, ValueType> &);
     ValueType at(const std::string &) const;
     bool search(const KeyType &) const;
-    //void dfsPrint() const;
+    void dfsPrint() const;
 };
 
 #endif
